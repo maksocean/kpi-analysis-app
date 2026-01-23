@@ -4,6 +4,7 @@ __pycache__/
 # Файлы компиляции Python
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 # Скомпилированные расширения
@@ -244,6 +245,10 @@ cython_debug/
 /.idea/modules.xml
 /.idea/scopes/scope_settings.xml
 /.idea/vcs.xml
+
+.vscode/
+*.swp
+*.swo
 
 # Use workspace.xml to store shared directory-based settings
 #!.idea/workspace.xml

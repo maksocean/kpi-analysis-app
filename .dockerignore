@@ -1,0 +1,131 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Распределения и сборки
+dist/
+build/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Тесты и покрытие
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+
+# Логи
+*.log
+logs/
+log/
+
+# Файлы окружения
+.env
+.env.local
+.env.prod.local
+.env.dev.local
+local.env
+
+# Документация
+docs/_build/
+
+# Временные файлы
+*.tmp
+*.temp
+*.bak
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# OS файлы
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker служебные файлы
+.dockercfg
+.docker/
+docker.log
+container_id
+*.tar.gz
+*.img
+*.image.tar
+containers-state
+compose-override.yml
+docker-compose.yml
+docker-compose.*.yml
+# Файлы для локальной разработки
+docker-compose.override.yml
+compose.yaml
+compose.yml
+
+# Файлы сборки и деплоя (если есть)
+Makefile
+# docker-entrypoint.sh, если он создается при сборке
+docker-entrypoint.sh
+
+# Данные и volumes (если это локальные папки, а не volumes в docker-compose)
+data_volume/
+app_data/
+postgres-data/
+redis-data/
+mysql-data/
+elasticsearch-data/
+rabbitmq-data/
+
+# Nginx конфиги (если внешние)
+nginx-conf.d/
+
+
+# Конфиденциальное
+*.key
+*.pem
+*.crt
+secrets/
+credentials/
+config.yml
+
+nginx-conf.d
+
+# Папки с данными (если используются как volumes)
+data_volume
+app_data
+postgres-data
+redis-data
+mysql-data
+elasticsearch-data
+rabbitmq-data
+

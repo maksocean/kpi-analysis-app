@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем рабочую директорию внутри контейнера
-WORKDIR /app
+WORKDIR /app/kpi_analysis_appп
 
 # Копируем файл зависимостей внутрь образа
 COPY requirements.txt .

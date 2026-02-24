@@ -11,9 +11,12 @@
 *.sublime-*
 
 # Python
-__pycache__/
+*.pyc
 *.py[cod]
+__pycache__/
 *$py.class
+*.pyo
+*.pyd
 *.so
 .Python
 env/
@@ -42,6 +45,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 .mypy_cache/
+htmlcov/
 
 # Логи
 *.log

@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *.py[codz]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -15,6 +16,7 @@ Thumbs.db
 
 # PostgreSQL data directory
 pgdata/
+postgres-data/
 
 # SQLite-базы
 *.db
@@ -225,6 +227,7 @@ activemq-data/
 
 # Environments
 .env
+.env.local
 .envrc
 .venv
 env/

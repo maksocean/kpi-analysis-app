@@ -11,6 +11,18 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from typing import Callable, Any
+
+def get_env_var(var_name: str, default: Any = None, cast_func: Callable[[str], Any] = str) -> Any:
+    """Безопасно получает переменную окружения с приведением типа."""
+    value = os.getenv(var_name)
+    if value is None:
+        return default
+    try:
+        return cast_func(value)
+    except (ValueError, TypeError):
+        return default
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +32,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2!u33s^$0b^tlenx@#e0-@b64v446j+t%c^2h))z+&(_h5^^dn'
+SECRET_KEY = get_env_var('DJANGO_SECRET_KEY', 'django-insecure-2!u33s^$0b^tlenx@#e0-@b64v446j+t%c^2h))z+&(_h5^^dn')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_env_var('DEBUG', False, cast_func=lambda x: x.lower() == 'true')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'web']
 
 
 # Application definition
@@ -37,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'simulator',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -74,11 +88,14 @@ WSGI_APPLICATION = 'kpi_analysis_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': get_env_var('POSTGRES_NAME', 'kpi_db'),
+        'USER': get_env_var('POSTGRES_USER', 'django_user'),
+        'PASSWORD': get_env_var('POSTGRES_PASSWORD', ''),
+        'HOST': get_env_var('POSTGRES_HOST', 'localhost'),
+        'PORT': get_env_var('POSTGRES_PORT', '5432', cast_func=int),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

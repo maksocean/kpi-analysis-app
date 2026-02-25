@@ -29,6 +29,14 @@ EXPOSE 8000
 
 # Создаём непривилегированного пользователя и переключаемся на него
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+
+# Даём пользователю права на всё содержимое /app
+RUN chown -R appuser:appgroup /app
+
+# Переходим в папку с manage.py
+WORKDIR /app/kpi_analysis_app
+
+# Переключаемся на пользователя
 USER appuser
 
 # Запуск команды для миграции базы данных и старта сервера разработки

@@ -17,6 +17,9 @@ services:
 
   web:
     build: .
+    command: python /app/kpi_analysis_app/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
     env_file:
       - .env # Веб-сервис тоже получит доступ к переменным
     environment:

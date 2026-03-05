@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mining KPI Simulator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{% static 'simulator/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🏭 Симулятор KPI горного участка</h1>
+        <div class="dashboard">
+            <!-- Панель управления (слайдеры/поля ввода) -->
+            <div class="control-panel">
+                <h3>Входные параметры</h3>
+                <form id="kpiForm">
+                    <label>Объём руды (тонн): <input type="number" id="ore_volume" value="1000"></label>
+                    <label>Плановое время (часы): <input type="number" id="operating_time" value="24"></label>
+                    <label>Простой (часы): <input type="number" id="downtime" value="2"></label>
+                    <label>Численность бригады: <input type="number" id="crew_size" value="15"></label>
+                    <label>Расход топлива (л): <input type="number" id="fuel_consumption" value="500"></label>
+                    <button type="button" onclick="calculateKPIs()">Рассчитать KPI</button>
+                </form>
+            </div>
+
+            <!-- Панель визуализации -->
+            <div class="charts-panel">
+                <h3>Ключевые показатели эффективности (KPI)</h3>
+                <div class="chart-container">
+                    <canvas id="kpiChart"></canvas>
+                </div>
+                <div class="indicators" id="kpiIndicators">
+                    <!-- Здесь появятся численные значения -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'simulator/js/apiClient.js' %}"></script>
+    <script src="{% static 'simulator/js/chartManager.js' %}"></script>
+</body>
+</html>

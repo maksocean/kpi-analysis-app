@@ -15,6 +15,10 @@ COPY requirements.txt .
 # Устанавливаем Python-зависимости приложения
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Копируем entrypoint.sh и делаем исполняемым
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Делаем логи Python мгновенными
 ENV PYTHONUNBUFFERED=1
 

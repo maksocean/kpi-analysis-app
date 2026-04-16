@@ -130,7 +130,7 @@ logs/
 # Для Django - Статика и медиа (если они генерируются автоматически)
 staticfiles/
 media/
-static/
+/static/
 collectstatic/
 
 # Power BI

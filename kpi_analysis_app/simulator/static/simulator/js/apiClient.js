@@ -1,39 +1,29 @@
-const API_URL = '/simulator/api/calculate/';
+const API_BASE = '/simulator/api';
 
-async function calculateKPIs() {
-    const formData = {
-        ore_volume: parseFloat(document.getElementById('ore_volume').value),
-        operating_time: parseFloat(document.getElementById('operating_time').value),
-        downtime: parseFloat(document.getElementById('downtime').value),
-        crew_size: parseInt(document.getElementById('crew_size').value),
-        fuel_consumption: parseFloat(document.getElementById('fuel_consumption').value)
-    };
-
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCsrfToken() // Не забудьте реализовать получение CSRF-токена
-            },
-            body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const kpiData = await response.json();
-        updateCharts(kpiData); // Функция из chartManager.js
-        updateIndicators(kpiData);
-
-    } catch (error) {
-        console.error('Ошибка при расчёте KPI:', error);
-        alert('Произошла ошибка при расчёте. Проверьте консоль.');
+export async function calculateKPIs(formData) {
+    const response = await fetch(`${API_BASE}/calculate/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    });
+    if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || `HTTP ${response.status}`);
     }
+    return response.json(); // { id, kpis, interpretation }
 }
 
-// Базовая функция для получения CSRF-токена (упрощённо)
-function getCsrfToken() {
-    return document.cookie.match(/csrftoken=([\w-]+)/)?.[1] || '';
+export async function exportScenariosToCSV() {
+    // Простой редирект на CSV (или можно через blob, как у вас)
+    window.location.href = `${API_BASE}/export-csv/`;
+}
+
+export async function fetchScenariosList() {
+    const response = await fetch(`${API_BASE}/scenarios/`);
+    return response.json();
+}
+
+export async function fetchScenarioById(id) {
+    const response = await fetch(`${API_BASE}/scenarios/${id}/`);
+    return response.json();
 }

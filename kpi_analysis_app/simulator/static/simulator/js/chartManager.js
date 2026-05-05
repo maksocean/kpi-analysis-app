@@ -1,3 +1,6 @@
+export { updateCharts, updateIndicators };
+export { initChart };
+
 let kpiChart = null;
 
 function initChart() {
@@ -36,14 +39,19 @@ function updateCharts(kpiData) {
 }
 
 function updateIndicators(kpiData) {
-    const container = document.getElementById('kpiIndicators');
-    container.innerHTML = `
-        <p><strong>Коэффициент использования оборудования:</strong> ${kpiData.equipment_utilization_rate} %</p>
-        <p><strong>Производительность труда:</strong> ${kpiData.labor_productivity} т/чел*час</p>
-        <p><strong>Удельный расход топлива:</strong> ${kpiData.fuel_efficiency} л/т</p>
-        <p><strong>Фактический темп добычи:</strong> ${kpiData.actual_production_rate} т/час</p>
-    `;
+    // Обновляем отдельные элементы, не трогая интерпретацию
+    const equipmentEl = document.getElementById('equipment_value');
+    if (equipmentEl) equipmentEl.innerText = kpiData.equipment_utilization_rate;
+
+    const productivityEl = document.getElementById('productivity_value');
+    if (productivityEl) productivityEl.innerText = kpiData.labor_productivity;
+
+    const fuelEl = document.getElementById('fuel_value');
+    if (fuelEl) fuelEl.innerText = kpiData.fuel_efficiency;
+
+    const rateEl = document.getElementById('rate_value');
+    if (rateEl) rateEl.innerText = kpiData.actual_production_rate;
 }
 
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', initChart);
+//document.addEventListener('DOMContentLoaded', initChart);

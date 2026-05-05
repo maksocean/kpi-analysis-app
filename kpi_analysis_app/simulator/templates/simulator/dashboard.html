@@ -21,7 +21,7 @@
                     <label>Простой (часы): <input type="number" id="downtime" value="2"></label>
                     <label>Численность бригады: <input type="number" id="crew_size" value="15"></label>
                     <label>Расход топлива (л): <input type="number" id="fuel_consumption" value="500"></label>
-                    <button type="button" onclick="calculateKPIs()">Рассчитать KPI</button>
+                    <button type="button" id="calculateBtn">Рассчитать KPI</button>
                 </form>
             </div>
 
@@ -35,9 +35,39 @@
                     <!-- Здесь появятся численные значения -->
                 </div>
             </div>
+
+            <!-- Коэффициент использования оборудования -->
+            <div class="kpi-block">
+                <h4>Коэффициент использования оборудования</h4>
+                <p><strong id="equipment_value">--</strong> %</p>
+                <p class="comment" id="interpret_equipment"></p>
+            </div>
+
+            <!-- Производительность труда -->
+            <div class="kpi-block">
+                <h4>Производительность труда</h4>
+                <p><strong id="productivity_value">--</strong> %</p>
+                <p class="comment" id="interpret_productivity"></p>
+            </div>
+
+            <!-- Удельный расход топлива -->
+            <div class="kpi-block">
+                <h4>Удельный расход топлива</h4>
+                <p><strong id="fuel_value">--</strong> %</p>
+                <p class="comment" id="interpret_fuel"></p>
+            </div>
+
+            <!-- Фактический темп добычи -->
+            <div class="kpi-block">
+                <h4>Фактический темп добычи</h4>
+                <p><strong id="rate_value">--</strong> %</p>
+                <p class="comment" id="interpret_rate"></p>
+            </div>
         </div>
+        <button id="exportCsvBtn" class="btn btn-secondary">Экспорт всех сценариев в CSV</button>
+        <select id="scenarioSelect"></select>
+        <button id="loadScenarioBtn" class="btn btn-info">Загрузить сценарий</button>
     </div>
-    <script src="{% static 'simulator/js/apiClient.js' %}"></script>
-    <script src="{% static 'simulator/js/chartManager.js' %}"></script>
+    <script type="module" src="{% static 'simulator/js/main.js' %}"></script>
 </body>
 </html>

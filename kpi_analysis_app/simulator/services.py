@@ -46,3 +46,40 @@ class MiningKPICalculator:
             'actual_production_rate': round(self.actual_production_rate(), 2),
             # Дополнительные KPI можно добавить здесь
         }
+
+def interpret_kpi(kpi_name: str, value: float) -> str:
+    """Возвращает текстовую интерпретацию KPI для отображения на фронте."""
+    if kpi_name == 'equipment_utilization_rate':
+        if value < 60:
+            return "Критически низкий КИО. Проверьте простои: организационные, ремонты."
+        elif value < 85:
+            return "КИО ниже целевого (85%). Есть резерв повышения за счёт сокращения простоев."
+        else:
+            return "КИО в норме (>85%). Хорошая организация работ."
+
+    elif kpi_name == 'labor_productivity':
+        if value < 2:
+            return "Очень низкая производительность. Аутсорсинг или механизация?"
+        elif value < 5:
+            return "Средняя производительность. Можно улучшить за счёт бригадной работы."
+        else:
+            return "Высокая производительность. Эталонный показатель."
+
+    elif kpi_name == 'fuel_efficiency':
+        if value < 0.3:
+            return "Отличная топливная эффективность (менее 0.3 л/т)."
+        elif value < 0.8:
+            return "Нормальный удельный расход топлива (0.3–0.8 л/т)."
+        else:
+            return "Высокий расход топлива (>0.8 л/т). Проверьте состояние техники, маршруты."
+
+    elif kpi_name == 'actual_production_rate':
+        if value < 30:
+            return "Низкий темп добычи (<30 т/ч). Анализируйте буровзрывные работы, транспорт."
+        elif value < 60:
+            return "Средний темп добычи (30–60 т/ч)."
+        else:
+            return "Высокий темп добычи (>60 т/ч). Отличная интенсификация."
+
+    else:
+        return "Нет интерпретации для данного KPI."

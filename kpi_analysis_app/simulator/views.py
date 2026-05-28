@@ -55,7 +55,7 @@ class ExportScenariosCSVView(APIView):
                          'Численность', 'Топливо(л)', 'КИО(%)', 'Произв.(т/ч-чел)',
                          'Уд.расход(л/т)', 'Темп(т/ч)'])
 
-        for scenario in ProductionData.objects.all().order_by('-date'):
+        for scenario in ProductionData.objects.all().order_by('-date', '-id'):
             # Вычисляем KPI для каждого сохранённого сценария
             calc = MiningKPICalculator(scenario)
             kpis = calc.calculate_all_kpis()

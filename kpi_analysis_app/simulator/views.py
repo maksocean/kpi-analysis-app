@@ -85,3 +85,22 @@ class ScenarioDetailView(APIView):
             'fuel_consumption': scenario.fuel_consumption,
         }
         return Response(data)
+
+class CalculatePreviewView(APIView):
+    """Расчёт KPI без сохранения в БД (предпросмотр)"""
+    def post(self, request):
+        serializer = KPICalculatorInputSerializer(data=request.data)
+        if serializer.is_valid():
+            # Создаём временный объект данных (не сохраняем в БД)
+            temp_data = ProductionData(**serializer.validated_data)  # не вызываем .save()
+            calculator = MiningKPICalculator(temp_data)
+            kpis = calculator.calculate_all_kpis()
+            interpretation = {
+                key: interpret_kpi(key, value)
+                for key, value in kpis.items()
+            }
+            return Response({
+                'kpis': kpis,
+                'interpretation': interpretation
+            }, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

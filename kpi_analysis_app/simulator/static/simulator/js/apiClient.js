@@ -27,3 +27,16 @@ export async function fetchScenarioById(id) {
     const response = await fetch(`${API_BASE}/scenarios/${id}/`);
     return response.json();
 }
+
+export async function previewKPIs(formData) {
+    const res = await fetch(`${API_BASE}/calculate-preview/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    });
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Ошибка предпросмотра');
+    }
+    return res.json();
+}

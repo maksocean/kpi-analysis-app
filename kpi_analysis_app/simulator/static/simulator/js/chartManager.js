@@ -1,9 +1,9 @@
-export { updateCharts, updateIndicators };
-export { initChart };
+// export { updateCharts, updateIndicators };
+// export { initChart };
 
 let kpiChart = null;
 
-function initChart() {
+export function initChart() {
     const ctx = document.getElementById('kpiChart').getContext('2d');
     kpiChart = new Chart(ctx, {
         type: 'bar', // или 'radar' для другого представления
@@ -24,7 +24,7 @@ function initChart() {
     });
 }
 
-function updateCharts(kpiData) {
+export function updateCharts(kpiData) {
     if (!kpiChart) initChart();
 
     const data = [
@@ -38,7 +38,7 @@ function updateCharts(kpiData) {
     kpiChart.update();
 }
 
-function updateIndicators(kpiData) {
+export function updateIndicators(kpiData) {
     // Обновляем отдельные элементы, не трогая интерпретацию
     const equipmentEl = document.getElementById('equipment_value');
     if (equipmentEl) equipmentEl.innerText = kpiData.equipment_utilization_rate;

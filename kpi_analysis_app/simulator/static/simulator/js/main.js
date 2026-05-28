@@ -1,4 +1,4 @@
-import { calculateKPIs, exportScenariosToCSV, fetchScenariosList, fetchScenarioById } from './apiClient.js';
+import { calculateKPIs, exportScenariosToCSV, fetchScenariosList, fetchScenarioById, previewKPIs } from './apiClient.js';
 import { updateKPIDisplay, updateInterpretation, populateScenarioSelect, showError } from './ui.js';
 import { initChart, updateCharts, updateIndicators } from './chartManager.js';
 
@@ -53,12 +53,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!select.value) return;
             try {
                 const scenario = await fetchScenarioById(select.value);
+                // Заполняем форму
                 form.ore_volume.value = scenario.ore_volume;
                 form.operating_time.value = scenario.operating_time;
                 form.downtime.value = scenario.downtime;
                 form.crew_size.value = scenario.crew_size;
                 form.fuel_consumption.value = scenario.fuel_consumption;
-                calcBtn.click();
+
+                // Предпросмотр без сохранения
+                const data = {
+                    ore_volume: scenario.ore_volume,
+                    operating_time: scenario.operating_time,
+                    downtime: scenario.downtime,
+                    crew_size: scenario.crew_size,
+                    fuel_consumption: scenario.fuel_consumption
+                };
+                const preview = await previewKPIs(data);  // новая функция
+                updateKPIDisplay(preview.kpis);  // эта функция внутри вызывает updateCharts
+                if (preview.interpretation) updateInterpretation(preview.interpretation);
             } catch (err) {
                 showError('Не удалось загрузить сценарий');
             }
